@@ -1,5 +1,20 @@
 {
   "key.farmrate.select": "Выделить воронку (зажать — протянуть)",
   "key.farmrate.hud": "Показать/скрыть панель выработки",
-  "key.category.farmrate.farmrate": "Farm Rate"
+  "key.farmrate.config": "Настройки Farm Rate Counter",
+  "key.category.farmrate.farmrate": "Farm Rate Counter",
+
+  "farmrate.config.title": "Farm Rate Counter — настройки",
+  "farmrate.config.overlay": "Подсветка воронок в мире",
+  "farmrate.config.hud": "Панель на экране",
+  "farmrate.config.corner": "Положение панели",
+  "farmrate.config.corner.0": "Слева сверху",
+  "farmrate.config.corner.1": "Справа сверху",
+  "farmrate.config.corner.2": "Слева снизу",
+  "farmrate.config.corner.3": "Справа снизу",
+  "farmrate.config.range": "Считать ближе %s блоков к воронкам",
+  "farmrate.config.current": "Текущая ферма",
+  "farmrate.config.reset": "Сбросить счётчик текущей фермы",
+  "farmrate.config.reset.done": "Счётчик %s сброшен",
+  "farmrate.config.no_world": "Фермы можно выбрать, когда ты в мире"
 }

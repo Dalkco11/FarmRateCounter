@@ -48,7 +48,14 @@ public final class HudPanel {
             width = Math.max(width, font.width(l.text) + (l.item != null ? 18 : 0));
             height += l.item != null ? 17 : font.lineHeight + 2;
         }
-        int x = PAD, y = PAD;
+        int corner = FarmStore.hudCorner();
+        boolean right = corner == 1 || corner == 3;
+        boolean bottom = corner == 2 || corner == 3;
+        int x = right ? g.guiWidth() - PAD - width : PAD;
+        int y = bottom ? g.guiHeight() - PAD - height - (corner == 2 ? 40 : 0) : PAD; // bottom-left: stay above chat
+        if (corner == 3) {
+            y -= 24; // keep clear of the hotbar edge / item tooltips
+        }
         g.fill(x - 2, y - 2, x + width + 2, y + height, 0x90000000);
         for (Line l : lines) {
             if (l.item != null) {

@@ -40,6 +40,8 @@ public final class FarmStore {
         public boolean showWorld = true;
         public boolean showHud = true;
         public int range = 40;
+        /** 0 = top-left, 1 = top-right, 2 = bottom-left, 3 = bottom-right */
+        public int hudCorner = 0;
         public Map<String, World> worlds = new HashMap<>();
     }
 
@@ -189,6 +191,15 @@ public final class FarmStore {
 
     public static void setRange(int v) {
         data.range = v;
+        save();
+    }
+
+    public static int hudCorner() {
+        return data.hudCorner;
+    }
+
+    public static void setHudCorner(int v) {
+        data.hudCorner = Math.floorMod(v, 4);
         save();
     }
 

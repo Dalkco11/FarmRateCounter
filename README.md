@@ -20,6 +20,7 @@
 - **Fair timing**: the clock only runs while you are near the farm (the farm only works then anyway), so rates are not diluted when you fly away.
 - **Storage mode**: mark the farm's chest with `/farmrate chest`. Every time you open it, the mod shows what arrived since the last time and the rate per hour, using server time, so AFK and away time count too.
 - **Saved per world**: farms and statistics are kept per server / world and dimension.
+- **Settings screen**: open it from [Mod Menu](https://modrinth.com/mod/modmenu), with `/farmrate config` or a key you bind. Toggle the overlay and the HUD panel, move the panel to any corner, set the counting distance, switch the current farm and reset its counter.
 
 ### ⚙️ How it works
 
@@ -32,6 +33,7 @@ Select the hoppers that items **fall or flow onto**, not the hopper chain below 
 | Command | Action |
 |---|---|
 | `/farmrate` | Stats of the current farm |
+| `/farmrate config` | Open the settings screen |
 | `/farmrate farm <name>` | Create / switch the current farm |
 | `/farmrate farms` | List farms |
 | `/farmrate add` / `remove` | Add / remove the hopper you are looking at |
@@ -73,6 +75,7 @@ Join my Discord server for chat, support and news: [**Join Discord Server**](htt
 - **Честное время**: замер идёт, только пока ты рядом с фермой (без тебя она и не работает), поэтому цифры не занижаются, когда улетаешь.
 - **Режим хранилища**: отметь сундук фермы командой `/farmrate chest`. При каждом открытии мод покажет, сколько пришло с прошлого раза и сколько это в час — по серверному времени, так что AFK и время отсутствия тоже учитываются.
 - **Сохранение по мирам**: фермы и статистика хранятся отдельно для каждого сервера / мира и измерения.
+- **Экран настроек**: открывается из [Mod Menu](https://modrinth.com/mod/modmenu), командой `/farmrate config` или своей клавишей. Подсветка и панель вкл/выкл, панель в любой угол экрана, дистанция замера, выбор текущей фермы и сброс её счётчика.
 
 ### ⚙️ Как это работает
 
@@ -85,6 +88,7 @@ Join my Discord server for chat, support and news: [**Join Discord Server**](htt
 | Команда | Действие |
 |---|---|
 | `/farmrate` | Статистика текущей фермы |
+| `/farmrate config` | Открыть экран настроек |
 | `/farmrate farm <название>` | Создать / выбрать текущую ферму |
 | `/farmrate farms` | Список ферм |
 | `/farmrate add` / `remove` | Добавить / убрать воронку под прицелом |

@@ -1,5 +1,20 @@
 {
   "key.farmrate.select": "Select hopper (hold to drag)",
   "key.farmrate.hud": "Toggle farm rate panel",
-  "key.category.farmrate.farmrate": "Farm Rate"
+  "key.farmrate.config": "Farm Rate Counter settings",
+  "key.category.farmrate.farmrate": "Farm Rate Counter",
+
+  "farmrate.config.title": "Farm Rate Counter — Settings",
+  "farmrate.config.overlay": "Hopper overlay in the world",
+  "farmrate.config.hud": "HUD panel",
+  "farmrate.config.corner": "Panel position",
+  "farmrate.config.corner.0": "Top left",
+  "farmrate.config.corner.1": "Top right",
+  "farmrate.config.corner.2": "Bottom left",
+  "farmrate.config.corner.3": "Bottom right",
+  "farmrate.config.range": "Count within %s blocks of the hoppers",
+  "farmrate.config.current": "Current farm",
+  "farmrate.config.reset": "Reset current farm counter",
+  "farmrate.config.reset.done": "Counter of %s reset",
+  "farmrate.config.no_world": "Farms can be chosen while you are in a world"
 }

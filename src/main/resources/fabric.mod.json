@@ -18,11 +18,17 @@
   "entrypoints": {
     "client": [
       "com.dalkco.farmrate.FarmRateClient"
+    ],
+    "modmenu": [
+      "com.dalkco.farmrate.ModMenuIntegration"
     ]
   },
   "depends": {
     "fabricloader": ">=0.16.0",
     "minecraft": ">=26.3",
     "fabric-api": "*"
+  },
+  "suggests": {
+    "modmenu": "*"
   }
 }

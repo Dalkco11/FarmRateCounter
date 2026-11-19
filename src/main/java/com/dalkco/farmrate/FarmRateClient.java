@@ -41,7 +41,10 @@ public class FarmRateClient implements ClientModInitializer {
 
     private KeyMapping selectKey;
     private KeyMapping hudKey;
+    private KeyMapping configKey;
     private HopperTracker tracker;
+    /** set by /farmrate config; opened on the next tick, after the chat screen has closed */
+    private static boolean openConfig;
 
     // drag selection
     private boolean selectWasDown;
@@ -65,6 +68,8 @@ public class FarmRateClient implements ClientModInitializer {
                 "key.farmrate.select", InputConstants.Type.KEYBOARD, InputConstants.KEY_J, CATEGORY));
         hudKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
                 "key.farmrate.hud", InputConstants.Type.KEYBOARD, InputConstants.UNKNOWN.getValue(), CATEGORY));
+        configKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
+                "key.farmrate.config", InputConstants.Type.KEYBOARD, InputConstants.UNKNOWN.getValue(), CATEGORY));
 
         UseBlockCallback.EVENT.register((player, level, hand, hit) -> {
             if (level.isClientSide()) {
@@ -85,6 +90,13 @@ public class FarmRateClient implements ClientModInitializer {
             }
             while (hudKey.consumeClick()) {
                 FarmStore.setShowHud(!FarmStore.showHud());
+            }
+            while (configKey.consumeClick()) {
+                openConfig = true;
+            }
+            if (openConfig && client.gui.screen() == null) {
+                openConfig = false;
+                client.gui.setScreen(new FarmRateConfigScreen(null));
             }
             handleSelection(client);
             tracker.tick();
@@ -223,6 +235,10 @@ public class FarmRateClient implements ClientModInitializer {
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> dispatcher.register(
                 ClientCommands.literal("farmrate")
                         .executes(ctx -> stats(ctx, FarmStore.currentFarm(Minecraft.getInstance())))
+                        .then(ClientCommands.literal("config").executes(ctx -> {
+                            openConfig = true;
+                            return 1;
+                        }))
                         .then(ClientCommands.literal("farm")
                                 .then(ClientCommands.argument("name", StringArgumentType.word())
                                         .suggests(FARM_NAMES)
