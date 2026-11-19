@@ -21,6 +21,7 @@
 - **Storage mode**: mark the farm's chest with `/farmrate chest`. Every time you open it, the mod shows what arrived since the last time and the rate per hour, using server time, so AFK and away time count too.
 - **Saved per world**: farms and statistics are kept per server / world and dimension.
 - **Settings screen**: open it from [Mod Menu](https://modrinth.com/mod/modmenu), with `/farmrate config` or a key you bind. Toggle the overlay and the HUD panel, move the panel to any corner, set the counting distance, switch the current farm and reset its counter.
+- **English and Russian**: the mod follows your game language.
 
 ### ⚙️ How it works
 
@@ -76,6 +77,7 @@ Join my Discord server for chat, support and news: [**Join Discord Server**](htt
 - **Режим хранилища**: отметь сундук фермы командой `/farmrate chest`. При каждом открытии мод покажет, сколько пришло с прошлого раза и сколько это в час — по серверному времени, так что AFK и время отсутствия тоже учитываются.
 - **Сохранение по мирам**: фермы и статистика хранятся отдельно для каждого сервера / мира и измерения.
 - **Экран настроек**: открывается из [Mod Menu](https://modrinth.com/mod/modmenu), командой `/farmrate config` или своей клавишей. Подсветка и панель вкл/выкл, панель в любой угол экрана, дистанция замера, выбор текущей фермы и сброс её счётчика.
+- **Английский и русский**: мод переключается вместе с языком игры.
 
 ### ⚙️ Как это работает
 

@@ -1,6 +1,7 @@
 package com.dalkco.farmrate;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gizmos.GizmoStyle;
 import net.minecraft.gizmos.Gizmos;
@@ -51,7 +52,9 @@ public final class WorldOverlay {
             }
             Vec3 label = new Vec3(sx / n, topY + 1.6, sz / n);
             String head = farm.name + ": " + Fmt.rate(farm.ratePerHour());
-            String sub = (farm.active ? "5 мин: " + Fmt.rate(farm.recentRatePerHour()) : "пауза — далеко")
+            String sub = (farm.active
+                    ? I18n.get("farmrate.overlay.recent", Fmt.rate(farm.recentRatePerHour()))
+                    : I18n.get("farmrate.overlay.paused"))
                     + " · " + Fmt.time(farm.observedTicks);
             Gizmos.billboardText(head, label, TextGizmo.Style.forColorAndCentered(color)).setAlwaysOnTop();
             Gizmos.billboardText(sub, label.add(0, -0.3, 0),

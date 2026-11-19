@@ -22,6 +22,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionResult;
@@ -158,11 +159,13 @@ public class FarmRateClient implements ClientModInitializer {
         if (dragAdding && owner == null) {
             current.hoppers.add(pos.asLong());
             FarmStore.markDirty();
-            actionBar(mc, "+ воронка → " + current.name + " (" + current.hoppers.size() + ")", current.color);
+            actionBar(mc, Component.translatable("farmrate.action.hopper_added",
+                    current.name, current.hoppers.size()), current.color);
         } else if (!dragAdding && owner != null) {
             owner.hoppers.remove(pos.asLong());
             FarmStore.markDirty();
-            actionBar(mc, "− воронка из " + owner.name + " (" + owner.hoppers.size() + ")", owner.color);
+            actionBar(mc, Component.translatable("farmrate.action.hopper_removed",
+                    owner.name, owner.hoppers.size()), owner.color);
         }
     }
 
@@ -184,8 +187,8 @@ public class FarmRateClient implements ClientModInitializer {
         }
     }
 
-    private static void actionBar(Minecraft mc, String text, int color) {
-        mc.player.sendOverlayMessage(Component.literal(text).withColor(color & 0xFFFFFF));
+    private static void actionBar(Minecraft mc, MutableComponent text, int color) {
+        mc.player.sendOverlayMessage(text.withColor(color & 0xFFFFFF));
     }
 
     // ------------------------------------------------------------------ commands
@@ -207,7 +210,7 @@ public class FarmRateClient implements ClientModInitializer {
         Minecraft mc = Minecraft.getInstance();
         FarmStore.Farm f = FarmStore.farm(mc, StringArgumentType.getString(ctx, "name"), false);
         if (f == null) {
-            ctx.getSource().sendError(Component.literal("Нет фермы с таким названием"));
+            ctx.getSource().sendError(Component.translatable("farmrate.msg.no_farm"));
         }
         return f;
     }
@@ -217,10 +220,10 @@ public class FarmRateClient implements ClientModInitializer {
             return 0;
         }
         feedback(ctx, Component.literal(f.name).withColor(f.color & 0xFFFFFF)
-                .append(Component.literal(": " + Fmt.rate(f.ratePerHour())
-                        + " · 5 мин: " + Fmt.rate(f.recentRatePerHour())
-                        + " · собрано " + Fmt.num(f.total()) + " за " + Fmt.time(f.observedTicks)
-                        + " · воронок " + f.hoppers.size() + (f.active ? "" : " · пауза (далеко)"))
+                .append(Component.translatable("farmrate.stats.line", Fmt.rate(f.ratePerHour()),
+                                Fmt.rate(f.recentRatePerHour()), Fmt.num(f.total()), Fmt.time(f.observedTicks),
+                                f.hoppers.size(),
+                                f.active ? Component.empty() : Component.translatable("farmrate.stats.paused"))
                         .withStyle(ChatFormatting.WHITE)));
         f.totals.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
@@ -246,9 +249,8 @@ public class FarmRateClient implements ClientModInitializer {
                                             String name = StringArgumentType.getString(ctx, "name");
                                             FarmStore.setCurrent(Minecraft.getInstance(), name);
                                             FarmStore.Farm f = FarmStore.currentFarm(Minecraft.getInstance());
-                                            feedback(ctx, Component.literal("Текущая ферма: ")
-                                                    .append(Component.literal(name).withColor(f.color & 0xFFFFFF))
-                                                    .append(" — новые воронки попадут в неё (бинд J или /farmrate add)"));
+                                            feedback(ctx, Component.translatable("farmrate.msg.current_farm",
+                                                    Component.literal(name).withColor(f.color & 0xFFFFFF)));
                                             return 1;
                                         })))
                         .then(ClientCommands.literal("farms").executes(ctx -> {
@@ -257,13 +259,15 @@ public class FarmRateClient implements ClientModInitializer {
                             for (FarmStore.Farm f : FarmStore.farms(mc)) {
                                 any = true;
                                 feedback(ctx, Component.literal(f.name).withColor(f.color & 0xFFFFFF)
-                                        .append(Component.literal(": " + Fmt.rate(f.ratePerHour()) + ", воронок "
-                                                + f.hoppers.size() + ", сундуков " + f.chests.size()
-                                                + (f.name.equals(FarmStore.world(mc).current) ? "  ← текущая" : ""))
+                                        .append(Component.translatable("farmrate.farms.line",
+                                                        Fmt.rate(f.ratePerHour()), f.hoppers.size(), f.chests.size(),
+                                                        f.name.equals(FarmStore.world(mc).current)
+                                                                ? Component.translatable("farmrate.farms.current")
+                                                                : Component.empty())
                                                 .withStyle(ChatFormatting.WHITE)));
                             }
                             if (!any) {
-                                feedback(ctx, Component.literal("Ферм пока нет: /farmrate farm <название>"));
+                                feedback(ctx, Component.translatable("farmrate.msg.no_farms"));
                             }
                             return 1;
                         }))
@@ -271,17 +275,17 @@ public class FarmRateClient implements ClientModInitializer {
                             Minecraft mc = Minecraft.getInstance();
                             BlockPos pos = lookedAtHopper(mc);
                             if (pos == null) {
-                                ctx.getSource().sendError(Component.literal("Посмотри на воронку"));
+                                ctx.getSource().sendError(Component.translatable("farmrate.msg.look_at_hopper"));
                                 return 0;
                             }
                             if (FarmStore.farmOfHopper(mc, pos) != null) {
-                                ctx.getSource().sendError(Component.literal("Эта воронка уже выделена"));
+                                ctx.getSource().sendError(Component.translatable("farmrate.msg.already_selected"));
                                 return 0;
                             }
                             FarmStore.Farm f = FarmStore.currentFarm(mc);
                             f.hoppers.add(pos.asLong());
                             FarmStore.save();
-                            feedback(ctx, Component.literal("Воронка добавлена в " + f.name + " (" + f.hoppers.size() + ")"));
+                            feedback(ctx, Component.translatable("farmrate.msg.hopper_added", f.name, f.hoppers.size()));
                             return 1;
                         }))
                         .then(ClientCommands.literal("remove").executes(ctx -> {
@@ -289,19 +293,19 @@ public class FarmRateClient implements ClientModInitializer {
                             BlockPos pos = lookedAtHopper(mc);
                             FarmStore.Farm f = pos == null ? null : FarmStore.farmOfHopper(mc, pos);
                             if (f == null) {
-                                ctx.getSource().sendError(Component.literal("Посмотри на выделенную воронку"));
+                                ctx.getSource().sendError(Component.translatable("farmrate.msg.look_at_selected"));
                                 return 0;
                             }
                             f.hoppers.remove(pos.asLong());
                             FarmStore.save();
-                            feedback(ctx, Component.literal("Воронка убрана из " + f.name));
+                            feedback(ctx, Component.translatable("farmrate.msg.hopper_removed", f.name));
                             return 1;
                         }))
                         .then(ClientCommands.literal("chest").executes(ctx -> {
                             Minecraft mc = Minecraft.getInstance();
                             BlockPos pos = lookedAtContainer(mc);
                             if (pos == null) {
-                                ctx.getSource().sendError(Component.literal("Посмотри на сундук / бочку хранилища фермы"));
+                                ctx.getSource().sendError(Component.translatable("farmrate.msg.look_at_storage"));
                                 return 0;
                             }
                             FarmStore.Farm owner = ChestSnapshots.farmFor(mc, pos);
@@ -312,14 +316,13 @@ public class FarmRateClient implements ClientModInitializer {
                                     owner.chests.remove(other.asLong());
                                 }
                                 FarmStore.save();
-                                feedback(ctx, Component.literal("Хранилище убрано из " + owner.name));
+                                feedback(ctx, Component.translatable("farmrate.msg.storage_removed", owner.name));
                                 return 1;
                             }
                             FarmStore.Farm f = FarmStore.currentFarm(mc);
                             f.chests.add(pos.asLong());
                             FarmStore.save();
-                            feedback(ctx, Component.literal("Хранилище фермы " + f.name
-                                    + " отмечено. Открывай его время от времени — покажу, сколько пришло и сколько в час."));
+                            feedback(ctx, Component.translatable("farmrate.msg.storage_marked", f.name));
                             return 1;
                         }))
                         .then(ClientCommands.literal("stats")
@@ -332,7 +335,7 @@ public class FarmRateClient implements ClientModInitializer {
                                     FarmStore.Farm f = FarmStore.currentFarm(Minecraft.getInstance());
                                     f.reset();
                                     FarmStore.save();
-                                    feedback(ctx, Component.literal("Счётчик " + f.name + " сброшен"));
+                                    feedback(ctx, Component.translatable("farmrate.msg.reset", f.name));
                                     return 1;
                                 })
                                 .then(ClientCommands.argument("name", StringArgumentType.word())
@@ -344,7 +347,7 @@ public class FarmRateClient implements ClientModInitializer {
                                             }
                                             f.reset();
                                             FarmStore.save();
-                                            feedback(ctx, Component.literal("Счётчик " + f.name + " сброшен"));
+                                            feedback(ctx, Component.translatable("farmrate.msg.reset", f.name));
                                             return 1;
                                         })))
                         .then(ClientCommands.literal("delete")
@@ -353,10 +356,10 @@ public class FarmRateClient implements ClientModInitializer {
                                         .executes(ctx -> {
                                             String name = StringArgumentType.getString(ctx, "name");
                                             if (!FarmStore.deleteFarm(Minecraft.getInstance(), name)) {
-                                                ctx.getSource().sendError(Component.literal("Нет фермы с таким названием"));
+                                                ctx.getSource().sendError(Component.translatable("farmrate.msg.no_farm"));
                                                 return 0;
                                             }
-                                            feedback(ctx, Component.literal("Ферма " + name + " удалена"));
+                                            feedback(ctx, Component.translatable("farmrate.msg.farm_deleted", name));
                                             return 1;
                                         })))
                         .then(ClientCommands.literal("show")
@@ -376,7 +379,7 @@ public class FarmRateClient implements ClientModInitializer {
                                         .executes(ctx -> {
                                             int r = IntegerArgumentType.getInteger(ctx, "blocks");
                                             FarmStore.setRange(r);
-                                            feedback(ctx, Component.literal("Считаю, когда ты ближе " + r + " блоков к воронке"));
+                                            feedback(ctx, Component.translatable("farmrate.msg.range", r));
                                             return 1;
                                         })))
         ));

@@ -16,5 +16,45 @@
   "farmrate.config.current": "Current farm",
   "farmrate.config.reset": "Reset current farm counter",
   "farmrate.config.reset.done": "Counter of %s reset",
-  "farmrate.config.no_world": "Farms can be chosen while you are in a world"
+  "farmrate.config.no_world": "Farms can be chosen while you are in a world",
+
+  "farmrate.unit.per_hour": "%s/h",
+  "farmrate.unit.hours_minutes": "%sh %sm",
+  "farmrate.unit.minutes_seconds": "%sm %ss",
+
+  "farmrate.action.hopper_added": "+ hopper → %s (%s)",
+  "farmrate.action.hopper_removed": "− hopper from %s (%s)",
+
+  "farmrate.stats.line": ": %s · 5 min: %s · collected %s in %s · hoppers %s%s",
+  "farmrate.stats.paused": " · paused (too far)",
+  "farmrate.farms.line": ": %s, hoppers %s, chests %s%s",
+  "farmrate.farms.current": "  ← current",
+
+  "farmrate.msg.no_farm": "No farm with that name",
+  "farmrate.msg.no_farms": "No farms yet: /farmrate farm <name>",
+  "farmrate.msg.current_farm": "Current farm: %s — new hoppers will go into it (J key or /farmrate add)",
+  "farmrate.msg.look_at_hopper": "Look at a hopper",
+  "farmrate.msg.already_selected": "This hopper is already selected",
+  "farmrate.msg.hopper_added": "Hopper added to %s (%s)",
+  "farmrate.msg.look_at_selected": "Look at a selected hopper",
+  "farmrate.msg.hopper_removed": "Hopper removed from %s",
+  "farmrate.msg.look_at_storage": "Look at the farm's storage chest / barrel",
+  "farmrate.msg.storage_removed": "Storage removed from %s",
+  "farmrate.msg.storage_marked": "Storage of farm %s marked. Open it from time to time — I'll show how much arrived and the rate per hour.",
+  "farmrate.msg.reset": "Counter of %s reset",
+  "farmrate.msg.farm_deleted": "Farm %s deleted",
+  "farmrate.msg.range": "Counting while you are within %s blocks of a hopper",
+
+  "farmrate.chest.snapshot_saved": "%s: storage snapshot saved. Open it later — I'll show how much arrived.",
+  "farmrate.chest.head": "%s — storage over %s: ",
+  "farmrate.chest.no_change": "nothing changed",
+  "farmrate.chest.more": "… %s more",
+  "farmrate.chest.taken": "(taken)",
+
+  "farmrate.hud.recent": "(5 min: %s)",
+  "farmrate.hud.paused": "paused",
+  "farmrate.hud.collected": "Collected %s in %s",
+
+  "farmrate.overlay.recent": "5 min: %s",
+  "farmrate.overlay.paused": "paused — too far"
 }

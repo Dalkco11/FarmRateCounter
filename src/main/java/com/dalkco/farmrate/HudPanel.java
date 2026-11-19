@@ -31,10 +31,12 @@ public final class HudPanel {
         Font font = mc.font;
         List<Line> lines = new ArrayList<>();
         lines.add(new Line(null, Component.literal(farm.name), farm.color));
-        lines.add(new Line(null, Component.literal(Fmt.rate(farm.ratePerHour())
-                + (farm.active ? "  (5 мин: " + Fmt.rate(farm.recentRatePerHour()) + ")" : "  пауза")), 0xFFFFFFFF));
-        lines.add(new Line(null, Component.literal("Собрано " + Fmt.num(farm.total()) + " за "
-                + Fmt.time(farm.observedTicks)), 0xFFAAAAAA));
+        lines.add(new Line(null, Component.literal(Fmt.rate(farm.ratePerHour()) + "  ")
+                .append(farm.active
+                        ? Component.translatable("farmrate.hud.recent", Fmt.rate(farm.recentRatePerHour()))
+                        : Component.translatable("farmrate.hud.paused")), 0xFFFFFFFF));
+        lines.add(new Line(null, Component.translatable("farmrate.hud.collected", Fmt.num(farm.total()),
+                Fmt.time(farm.observedTicks)), 0xFFAAAAAA));
         farm.totals.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(TOP_ITEMS)

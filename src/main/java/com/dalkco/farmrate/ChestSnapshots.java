@@ -73,7 +73,7 @@ public final class ChestSnapshots {
         if (prev == null || time <= prev.gameTime) {
             farm.snapshot = snap;
             FarmStore.save();
-            msg(player, Component.literal(farm.name + ": снимок хранилища сохранён. Открой его позже — покажу, сколько пришло.")
+            msg(player, Component.translatable("farmrate.chest.snapshot_saved", farm.name)
                     .withStyle(ChatFormatting.GRAY));
             return;
         }
@@ -100,23 +100,27 @@ public final class ChestSnapshots {
         diff.sort((a, b) -> Long.compare(b.getValue(), a.getValue()));
         double hours = elapsed / 72000.0;
 
-        MutableComponent head = Component.literal(farm.name + " — хранилище за " + Fmt.time(elapsed) + ": ")
+        MutableComponent head = Component.translatable("farmrate.chest.head", farm.name, Fmt.time(elapsed))
                 .withStyle(ChatFormatting.GOLD)
                 .append(Component.literal("+" + Fmt.num(totalGain) + " (" + Fmt.rate(totalGain / hours) + ")")
                         .withStyle(ChatFormatting.WHITE));
         msg(player, head);
         if (diff.isEmpty()) {
-            msg(player, Component.literal("  ничего не изменилось").withStyle(ChatFormatting.GRAY));
+            msg(player, Component.literal("  ").append(Component.translatable("farmrate.chest.no_change"))
+                    .withStyle(ChatFormatting.GRAY));
         }
         int shown = 0;
         for (Map.Entry<String, Long> e : diff) {
             if (shown++ >= 8) {
-                msg(player, Component.literal("  … ещё " + (diff.size() - 8)).withStyle(ChatFormatting.GRAY));
+                msg(player, Component.literal("  ").append(Component.translatable("farmrate.chest.more", diff.size() - 8))
+                        .withStyle(ChatFormatting.GRAY));
                 break;
             }
             long d = e.getValue();
             msg(player, Component.literal(d > 0 ? "  +" : "  ").append(Fmt.num(d) + " ").append(Fmt.name(e.getKey()))
-                    .append(d > 0 ? " (" + Fmt.rate(d / hours) + ")" : " (забрали)")
+                    .append(" ")
+                    .append(d > 0 ? Component.literal("(" + Fmt.rate(d / hours) + ")")
+                            : Component.translatable("farmrate.chest.taken"))
                     .withStyle(d > 0 ? ChatFormatting.GREEN : ChatFormatting.RED));
         }
     }

@@ -16,5 +16,45 @@
   "farmrate.config.current": "Текущая ферма",
   "farmrate.config.reset": "Сбросить счётчик текущей фермы",
   "farmrate.config.reset.done": "Счётчик %s сброшен",
-  "farmrate.config.no_world": "Фермы можно выбрать, когда ты в мире"
+  "farmrate.config.no_world": "Фермы можно выбрать, когда ты в мире",
+
+  "farmrate.unit.per_hour": "%s/ч",
+  "farmrate.unit.hours_minutes": "%sч %sм",
+  "farmrate.unit.minutes_seconds": "%sм %sс",
+
+  "farmrate.action.hopper_added": "+ воронка → %s (%s)",
+  "farmrate.action.hopper_removed": "− воронка из %s (%s)",
+
+  "farmrate.stats.line": ": %s · 5 мин: %s · собрано %s за %s · воронок %s%s",
+  "farmrate.stats.paused": " · пауза (далеко)",
+  "farmrate.farms.line": ": %s, воронок %s, сундуков %s%s",
+  "farmrate.farms.current": "  ← текущая",
+
+  "farmrate.msg.no_farm": "Нет фермы с таким названием",
+  "farmrate.msg.no_farms": "Ферм пока нет: /farmrate farm <название>",
+  "farmrate.msg.current_farm": "Текущая ферма: %s — новые воронки попадут в неё (бинд J или /farmrate add)",
+  "farmrate.msg.look_at_hopper": "Посмотри на воронку",
+  "farmrate.msg.already_selected": "Эта воронка уже выделена",
+  "farmrate.msg.hopper_added": "Воронка добавлена в %s (%s)",
+  "farmrate.msg.look_at_selected": "Посмотри на выделенную воронку",
+  "farmrate.msg.hopper_removed": "Воронка убрана из %s",
+  "farmrate.msg.look_at_storage": "Посмотри на сундук / бочку хранилища фермы",
+  "farmrate.msg.storage_removed": "Хранилище убрано из %s",
+  "farmrate.msg.storage_marked": "Хранилище фермы %s отмечено. Открывай его время от времени — покажу, сколько пришло и сколько в час.",
+  "farmrate.msg.reset": "Счётчик %s сброшен",
+  "farmrate.msg.farm_deleted": "Ферма %s удалена",
+  "farmrate.msg.range": "Считаю, когда ты ближе %s блоков к воронке",
+
+  "farmrate.chest.snapshot_saved": "%s: снимок хранилища сохранён. Открой его позже — покажу, сколько пришло.",
+  "farmrate.chest.head": "%s — хранилище за %s: ",
+  "farmrate.chest.no_change": "ничего не изменилось",
+  "farmrate.chest.more": "… ещё %s",
+  "farmrate.chest.taken": "(забрали)",
+
+  "farmrate.hud.recent": "(5 мин: %s)",
+  "farmrate.hud.paused": "пауза",
+  "farmrate.hud.collected": "Собрано %s за %s",
+
+  "farmrate.overlay.recent": "5 мин: %s",
+  "farmrate.overlay.paused": "пауза — далеко"
 }

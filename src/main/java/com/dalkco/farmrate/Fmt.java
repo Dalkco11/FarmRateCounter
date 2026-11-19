@@ -1,5 +1,6 @@
 package com.dalkco.farmrate;
 
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -25,17 +26,17 @@ public final class Fmt {
     }
 
     public static String rate(double perHour) {
-        return num(Math.round(perHour)) + "/ч";
+        return I18n.get("farmrate.unit.per_hour", num(Math.round(perHour)));
     }
 
-    /** ticks -> "2ч 13м" / "4м 05с" */
+    /** ticks -> "2h 13m" / "4m 05s" (units follow the client language) */
     public static String time(long ticks) {
         long sec = ticks / 20;
         long h = sec / 3600, m = sec / 60 % 60, s = sec % 60;
         if (h > 0) {
-            return h + "ч " + m + "м";
+            return I18n.get("farmrate.unit.hours_minutes", h, m);
         }
-        return m + "м " + (s < 10 ? "0" : "") + s + "с";
+        return I18n.get("farmrate.unit.minutes_seconds", m, (s < 10 ? "0" : "") + s);
     }
 
     public static Item item(String id) {
