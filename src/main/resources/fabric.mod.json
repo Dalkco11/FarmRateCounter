@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "farmrate",
+  "version": "${version}",
+  "name": "Farm Rate Counter",
+  "description": "Client-side farm rate counter: select collection hoppers and see items per hour. Works on vanilla servers.",
+  "authors": [
+    "Dalkco"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/farm-rate-counter",
+    "sources": "https://github.com/Dalkco11/FarmRateCounter",
+    "issues": "https://github.com/Dalkco11/FarmRateCounter/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/farmrate/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.dalkco.farmrate.FarmRateClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": ">=26.3",
+    "fabric-api": "*"
+  }
+}
